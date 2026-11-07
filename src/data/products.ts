@@ -59,7 +59,19 @@ export const products: Product[] = [
   p("boom-home", "Boom Home Smart Speaker", "Boom", "speakers", 19990, 24990, 4.4, 890, ["trending"], "Room-filling smart speaker with voice assistant and Wi-Fi streaming.", ["Wi-Fi + Bluetooth", "Voice assistant", "Room tuning", "Multi-room"]),
   p("vortex-pad", "Vortex Wireless Controller", "Vortex", "gaming", 5490, 6990, 4.6, 4210, ["bestseller", "trending"], "Low-latency controller with hall-effect sticks and haptics.", ["Hall-effect sticks", "Haptic triggers", "30h battery", "PC & console"]),
   p("vortex-keys", "Vortex RGB Mechanical Keyboard", "Vortex", "gaming", 7990, 11990, 4.5, 1650, ["offer"], "Hot-swappable mechanical keyboard with per-key RGB.", ["Hot-swap switches", "Per-key RGB", "Aluminium frame", "USB-C"]),
+  p("nova-lite", "Nova Lite 5G (128GB)", "Nova", "smartphones", 18999, 24999, 4.3, 3980, ["offer"], "Big battery, smooth 120Hz screen and 5G at a budget-friendly price.", ["6.6\" 120Hz LCD", "50MP camera", "6000mAh battery", "5G ready"]),
+  p("sonic-neck", "SonicBand Neckband", "Sonic", "headphones", 1999, 3499, 4.1, 8120, ["bestseller"], "Lightweight neckband earphones with fast charging for daily commutes.", ["25h playtime", "Fast charge", "Magnetic buds", "IPX5"]),
+  p("vortex-headset", "Vortex 7.1 Gaming Headset", "Vortex", "gaming", 4490, 6490, 4.4, 2380, ["trending"], "Surround sound headset with a detachable noise-cancelling mic.", ["7.1 surround", "50mm drivers", "Detachable mic", "Memory foam"]),
 ];
+
+export type SortOption = "featured" | "price-asc" | "price-desc";
+
+/** Returns a new array; "featured" keeps catalog order. */
+export function sortProducts(list: Product[], sort?: string) {
+  if (sort === "price-asc") return [...list].sort((a, b) => a.price - b.price);
+  if (sort === "price-desc") return [...list].sort((a, b) => b.price - a.price);
+  return [...list];
+}
 
 export const discountPct = (p: Product) => Math.round(((p.mrp - p.price) / p.mrp) * 100);
 export const formatINR = (n: number) =>
