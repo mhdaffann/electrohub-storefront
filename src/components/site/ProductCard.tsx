@@ -31,7 +31,9 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{product.brand}</p>
         <h3 className="line-clamp-2 font-display text-base font-semibold leading-snug">{product.name}</h3>
         <Rating value={product.rating} reviews={product.reviews} />
-        <div className="flex items-baseline gap-2">
+        <p className="line-clamp-2 text-sm text-muted-foreground">{product.description}</p>
+        <div className="flex flex-wrap items-baseline gap-x-2">
+          <span className="text-sm font-bold text-success sm:hidden">{off}% off</span>
           <span className="text-lg font-bold">{formatINR(product.price)}</span>
           <span className="text-sm text-muted-foreground line-through">{formatINR(product.mrp)}</span>
         </div>
