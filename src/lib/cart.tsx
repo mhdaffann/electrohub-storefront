@@ -34,7 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const ex = raw.find((l) => l.id === id);
         save(ex ? raw.map((l) => (l.id === id ? { ...l, qty: l.qty + qty } : l)) : [...raw, { id, qty }]);
       },
-      setQty: (id, qty) => save(qty <= 0 ? raw.filter((l) => l.id !== id) : raw.map((l) => (l.id === id ? { ...l, qty } : l))),
+      setQty: (id, qty) => save(raw.map((l) => (l.id === id ? { ...l, qty: Math.max(1, Math.floor(qty)) } : l))),
       remove: (id) => save(raw.filter((l) => l.id !== id)),
       clear: () => save([]),
     };
