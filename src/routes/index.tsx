@@ -11,6 +11,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Shop smartphones, laptops, headphones, smartwatches, cameras and more at the best prices in ₹." },
       { property: "og:title", content: "ElectroHub — Premium Electronics Store" },
       { property: "og:description", content: "Latest gadgets with great deals, genuine warranty and fast delivery." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

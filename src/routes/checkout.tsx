@@ -11,6 +11,8 @@ export const Route = createFileRoute("/checkout")({
       { name: "description", content: "Enter delivery details and review your ElectroHub order." },
       { property: "og:title", content: "Checkout — ElectroHub" },
       { property: "og:description", content: "Review your ElectroHub order." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

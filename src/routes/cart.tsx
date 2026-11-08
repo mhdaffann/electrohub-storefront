@@ -10,6 +10,8 @@ export const Route = createFileRoute("/cart")({
       { name: "description", content: "Review the items in your ElectroHub cart." },
       { property: "og:title", content: "Your Cart — ElectroHub" },
       { property: "og:description", content: "Review the items in your ElectroHub cart." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CartPage,

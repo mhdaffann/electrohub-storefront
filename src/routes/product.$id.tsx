@@ -20,6 +20,7 @@ export const Route = createFileRoute("/product/$id")({
           { property: "og:title", content: `${loaderData.product.name} — ElectroHub` },
           { property: "og:description", content: loaderData.product.description },
           { property: "og:type", content: "product" },
+          { name: "twitter:card", content: "summary_large_image" },
         ]
       : [{ title: "Product not found — ElectroHub" }, { name: "robots", content: "noindex" }],
   }),

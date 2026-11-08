@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep a single root AuthProvider for session state and identity-transition invalidation; auth changes must not clear the independent guest cart.
+- Account routes live under the client-only authenticated layout; private profile reads use the generated browser client with owner-scoped RLS.
+- Share Zod schemas across account forms; Cloud Auth validates credentials on the server and database constraints validate stored profile fields.
