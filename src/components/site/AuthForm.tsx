@@ -22,7 +22,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError(""); setMessage(""); setErrors({});
     const data = Object.fromEntries(new FormData(event.currentTarget));
-    const parsed = mode === "signup" ? registrationSchema.safeParse(data) : mode === "reset" ? resetSchema.safeParse(data) : mode === "forgot" ? emailSchema.safeParse(data.email) : loginSchema.safeParse(data);
+    const parsed = mode === "signup" ? registrationSchema.safeParse(data) : mode === "reset" ? resetSchema.safeParse(data) : mode === "forgot" ? emailSchema.safeParse(data['email']) : loginSchema.safeParse(data);
     if (!parsed.success) {
       const next: Record<string, string> = {};
       for (const issue of parsed.error.issues) next[String(issue.path[0] ?? "email")] = issue.message;
@@ -41,7 +41,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         if (authError) throw authError;
         await navigate({ to: "/account", replace: true });
       } else if (mode === "forgot") {
-        const { error: authError } = await supabase.auth.resetPasswordForEmail(emailSchema.parse(data.email), { redirectTo: `${window.location.origin}/reset-password` });
+        const { error: authError } = await supabase.auth.resetPasswordForEmail(emailSchema.parse(data['email']), { redirectTo: `${window.location.origin}/reset-password` });
         if (authError) throw authError;
         setMessage("If an account exists for this email, you’ll receive a password reset link.");
       } else {

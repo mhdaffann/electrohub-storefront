@@ -19,6 +19,8 @@ export const Route = createFileRoute("/products")({
       { name: "description", content: "Browse, search, filter and sort smartphones, laptops, audio, cameras and gaming accessories." },
       { property: "og:title", content: "Shop All Electronics — ElectroHub" },
       { property: "og:description", content: "Search, filter and sort the full ElectroHub catalog." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Products,
