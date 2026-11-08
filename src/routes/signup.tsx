@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AuthPlaceholder } from "@/components/site/AuthPlaceholder";
+import { AuthForm } from "@/components/site/AuthForm";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -8,7 +8,9 @@ export const Route = createFileRoute("/signup")({
       { name: "description", content: "Create your ElectroHub account." },
       { property: "og:title", content: "Sign up — ElectroHub" },
       { property: "og:description", content: "Create your ElectroHub account." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: () => <AuthPlaceholder mode="signup" />,
+  component: () => <AuthForm mode="signup" />,
 });
