@@ -17,6 +17,7 @@ import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { AuthProvider } from "@/lib/auth";
+import { catalogQueryOptions } from "@/lib/catalog";
 
 function NotFoundComponent() {
   return (
@@ -79,6 +80,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: ({ context }) => context.queryClient.ensureQueryData(catalogQueryOptions),
   head: () => ({
     meta: [
       { charSet: "utf-8" },

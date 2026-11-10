@@ -14,6 +14,191 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          image_key: string
+          image_url: string | null
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          created_at?: string
+          image_key?: string
+          image_url?: string | null
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          created_at?: string
+          image_key?: string
+          image_url?: string | null
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          line_total: number | null
+          order_id: string
+          product_id: string | null
+          product_name: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          line_total?: number | null
+          order_id: string
+          product_id?: string | null
+          product_name: string
+          quantity: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          line_total?: number | null
+          order_id?: string
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          currency: string
+          delivery_charge: number
+          id: string
+          payment_reference: string | null
+          shipping_address: Json
+          status: string
+          subtotal: number
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          delivery_charge?: number
+          id?: string
+          payment_reference?: string | null
+          shipping_address?: Json
+          status?: string
+          subtotal: number
+          total: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          delivery_charge?: number
+          id?: string
+          payment_reference?: string | null
+          shipping_address?: Json
+          status?: string
+          subtotal?: number
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          brand: string
+          category_slug: string
+          created_at: string
+          description: string
+          highlights: string[]
+          id: string
+          image_key: string
+          image_url: string | null
+          is_active: boolean
+          mrp: number
+          name: string
+          price: number
+          rating: number
+          review_count: number
+          sort_order: number
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          brand?: string
+          category_slug: string
+          created_at?: string
+          description?: string
+          highlights?: string[]
+          id: string
+          image_key?: string
+          image_url?: string | null
+          is_active?: boolean
+          mrp: number
+          name: string
+          price: number
+          rating?: number
+          review_count?: number
+          sort_order?: number
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          brand?: string
+          category_slug?: string
+          created_at?: string
+          description?: string
+          highlights?: string[]
+          id?: string
+          image_key?: string
+          image_url?: string | null
+          is_active?: boolean
+          mrp?: number
+          name?: string
+          price?: number
+          rating?: number
+          review_count?: number
+          sort_order?: number
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_slug_fkey"
+            columns: ["category_slug"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string

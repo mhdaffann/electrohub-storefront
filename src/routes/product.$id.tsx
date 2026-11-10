@@ -2,13 +2,15 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Check, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { discountPct, formatINR, getCategory, getProduct, products } from "@/data/products";
+import { discountPct, formatINR } from "@/data/products";
+import { catalogQueryOptions, useCatalog } from "@/lib/catalog";
 import { ProductGrid, Rating } from "@/components/site/ProductCard";
 import { useCart } from "@/lib/cart";
 
 export const Route = createFileRoute("/product/$id")({
-  loader: ({ params }) => {
-    const product = getProduct(params.id);
+  loader: async ({ params, context }) => {
+    const catalog = await context.queryClient.ensureQueryData(catalogQueryOptions);
+    const product = catalog.products.find((p) => p.id === params.id);
     if (!product) throw notFound();
     return { product };
   },
@@ -37,6 +39,7 @@ function ProductPage() {
   const { product } = Route.useLoaderData();
   const { add } = useCart();
   const [qty, setQty] = useState(1);
+  const { products, getCategory } = useCatalog();
   const cat = getCategory(product.category);
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
