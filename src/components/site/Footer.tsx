@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { categories } from "@/data/products";
+import { useCatalog } from "@/lib/catalog";
 import { Logo } from "./Header";
 
 export function Footer() {
+  const { categories } = useCatalog();
   return (
     <footer className="mt-24 bg-ink text-ink-foreground">
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">

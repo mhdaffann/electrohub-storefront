@@ -1,7 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { categories, filterProducts, getCategory, sortProducts } from "@/data/products";
+import { filterProducts, sortProducts } from "@/data/products";
+import { useCatalog } from "@/lib/catalog";
 import { ProductGrid } from "@/components/site/ProductCard";
 
 type SearchParams = { q?: string | undefined; category?: string | undefined; sort?: string | undefined };
@@ -34,11 +35,12 @@ const sortOptions = [
 
 function Products() {
   const { q, category, sort } = Route.useSearch();
+  const { categories, products, getCategory } = useCatalog();
   const navigate = useNavigate({ from: "/products" });
   const [term, setTerm] = useState(q ?? "");
   useEffect(() => setTerm(q ?? ""), [q]);
 
-  const list = sortProducts(filterProducts(q, category), sort);
+  const list = sortProducts(filterProducts(products, q, category), sort);
   const cat = category ? getCategory(category) : undefined;
   const chip = (active: boolean) =>
     `whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition ${active ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-foreground"}`;

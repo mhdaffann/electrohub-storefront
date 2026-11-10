@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgePercent, ShieldCheck, Truck } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import { categories, products, discountPct, formatINR } from "@/data/products";
+import { discountPct, formatINR } from "@/data/products";
+import { useCatalog } from "@/lib/catalog";
 import { ProductGrid, Rating, SectionHeading } from "@/components/site/ProductCard";
 
 export const Route = createFileRoute("/")({
@@ -25,6 +26,7 @@ const reviews = [
 ];
 
 function Index() {
+  const { categories, products } = useCatalog();
   const trending = products.filter((p) => p.tags.includes("trending")).slice(0, 4);
   const best = products.filter((p) => p.tags.includes("bestseller")).slice(0, 4);
   const offers = products.filter((p) => p.tags.includes("offer")).sort((a, b) => discountPct(b) - discountPct(a)).slice(0, 3);

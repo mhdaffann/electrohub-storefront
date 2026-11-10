@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Menu, Search, ShoppingCart, UserRound, X, Zap } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { categories } from "@/data/products";
 import { useCart } from "@/lib/cart";
 import { useAuth } from "@/lib/auth";
+import { useCatalog } from "@/lib/catalog";
 import { Button } from "@/components/ui/button";
 
 export function Logo() {
