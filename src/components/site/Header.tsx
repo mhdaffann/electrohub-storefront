@@ -42,6 +42,7 @@ function SearchBox({ onDone }: { onDone?: () => void }) {
 export function Header() {
   const { count } = useCart();
   const { user, loading } = useAuth();
+  const { categories } = useCatalog();
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b bg-card/85 backdrop-blur-lg">
