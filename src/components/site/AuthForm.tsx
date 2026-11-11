@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Eye, EyeOff, LoaderCircle, LockKeyhole, Mail, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
+import { ResendConfirmation } from "@/components/site/ResendConfirmation";
 import { emailSchema, loginSchema, registrationSchema, resetSchema } from "@/lib/auth-validation";
 
 type Mode = "login" | "signup" | "forgot" | "reset";
@@ -15,6 +16,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
   useEffect(() => {
     if (!loading && user && !recovery && (mode === "login" || mode === "signup")) void navigate({ to: "/account", replace: true });
   }, [loading, user, recovery, mode, navigate]);
@@ -69,7 +71,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-accent text-primary"><LockKeyhole /></span>
       <p className="mb-2 text-sm font-semibold text-primary">ElectroHub account</p>
       <h1 className="font-display text-2xl font-bold">{titles[mode]}</h1>
-      <form onSubmit={submit} noValidate className="mt-6 space-y-4">
+      <form ref={formRef} onSubmit={submit} noValidate className="mt-6 space-y-4">
         {mode === "signup" && field("fullName", "Full name", "text", "name")}
         {mode !== "reset" && field("email", "Email address", "email", "email")}
         {mode !== "forgot" && field("password", mode === "reset" ? "New password" : "Password", "password", mode === "login" ? "current-password" : "new-password")}
@@ -80,6 +82,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         <Button className="h-12 w-full rounded-full font-semibold" disabled={busy || (mode === "reset" && (!recovery || !user))}>{busy && <LoaderCircle className="animate-spin" />}{mode === "login" ? "Login" : mode === "signup" ? "Create account" : mode === "forgot" ? "Send reset link" : "Update password"}</Button>
         {mode === "reset" && !loading && (!recovery || !user) && <p className="text-sm text-muted-foreground">This reset link is missing or expired. <Link to="/forgot-password" className="text-primary">Request a new link</Link></p>}
       </form>
+      {mode === "login" && <ResendConfirmation getEmail={() => String(new FormData(formRef.current ?? undefined).get("email") ?? "")} />}
       <p className="mt-6 text-center text-sm">{mode === "login" ? <>New here? <Link to="/signup" className="font-semibold text-primary">Sign up</Link></> : <>Already have an account? <Link to="/login" className="font-semibold text-primary">Login</Link></>}</p>
       <div className="mt-6 flex items-center justify-center gap-2 border-t pt-5 text-xs text-muted-foreground"><ShieldCheck className="h-4 w-4" />Secure account access</div>
     </section>
