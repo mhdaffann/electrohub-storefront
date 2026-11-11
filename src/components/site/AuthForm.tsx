@@ -40,6 +40,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         else setMessage("Check your email to confirm your account before signing in.");
       } else if (mode === "login") {
         const { error: authError } = await supabase.auth.signInWithPassword(loginSchema.parse(data));
+        if (authError?.code === "email_not_confirmed" || /not confirmed/i.test(authError?.message ?? "")) throw new Error("Your email isn’t confirmed yet. Use “Resend confirmation email” below to get a new link.");
         if (authError) throw authError;
         await navigate({ to: "/account", replace: true });
       } else if (mode === "forgot") {
