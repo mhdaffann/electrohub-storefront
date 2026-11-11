@@ -10,3 +10,5 @@ export const registrationSchema = z.object({
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, { message: "Passwords do not match.", path: ["confirmPassword"] });
 export const resetSchema = z.object({ password: passwordSchema, confirmPassword: z.string() }).refine((data) => data.password === data.confirmPassword, { message: "Passwords do not match.", path: ["confirmPassword"] });
+export const fullNameSchema = z.string().trim().min(1, "Enter your full name.").max(100, "Use no more than 100 characters.");
+export const profileSchema = z.object({ fullName: fullNameSchema });
