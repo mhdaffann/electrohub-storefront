@@ -36,7 +36,7 @@ function Account() {
     <section aria-labelledby="details-heading" className="mb-12">
       <h2 id="details-heading" className="mb-4 font-display text-lg font-semibold">Account details</h2>
       {profile.isPending ? <p role="status">Loading your profile…</p> : profile.isError ? <div role="alert"><p className="text-destructive">Your profile could not be loaded.</p><Button variant="outline" className="mt-3" onClick={() => void profile.refetch()}>Try again</Button></div> : <div className="rounded-2xl border bg-card p-5 shadow-card sm:p-6">
-        <ProfileForm key={profile.data.full_name} userId={user.id} fullName={profile.data.full_name} />
+        <ProfileForm userId={user.id} fullName={profile.data.full_name} />
         <dl className="mt-6 divide-y border-t">
           {[["Email address", user.email ?? ""], ["Email status", user.email_confirmed_at ? "Verified" : "Awaiting verification"], ["Member since", longDate(profile.data.created_at)]].map(([label, value]) => <div className="grid gap-1 py-4 sm:grid-cols-[160px_1fr]" key={label}><dt className="text-sm text-muted-foreground">{label}</dt><dd className="break-words font-medium">{value}</dd></div>)}
         </dl>
