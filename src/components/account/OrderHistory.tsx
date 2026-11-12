@@ -13,7 +13,7 @@ export function OrderHistory({ userId }: { userId: string }) {
   // Access rules on the order tables only return the signed-in customer's own orders.
   const orders = useQuery({ queryKey: ["orders", userId], queryFn: async () => {
     const { data, error } = await supabase.from("orders")
-      .select("id, status, total, created_at, payment_reference, order_items(id, product_name, quantity, unit_price, line_total)")
+      .select("id, status, total, created_at, payment_reference, is_demo, order_items(id, product_name, quantity, unit_price, line_total)")
       .eq("user_id", userId).order("created_at", { ascending: false });
     if (error) throw error;
     return data;
@@ -30,10 +30,10 @@ export function OrderHistory({ userId }: { userId: string }) {
 
   return <ul className="space-y-4">
     {orders.data.map((o) => {
-      const s = orderStatus(o.status); const p = paymentStatus(o.status, o.payment_reference);
+      const s = orderStatus(o.status, o.is_demo); const p = paymentStatus(o.status, o.payment_reference, o.is_demo);
       return <li key={o.id} className="overflow-hidden rounded-2xl border bg-card shadow-card">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b bg-secondary/60 px-4 py-3 sm:px-5">
-          <div><p className="font-display font-semibold" title={o.id}>Order {orderNumber(o.id)}</p><p className="text-sm text-muted-foreground">Placed {formatDate(o.created_at)}</p></div>
+          <div><Link to="/order/$id" params={{ id: o.id }} className="font-display font-semibold hover:text-primary" title={o.id}>Order {orderNumber(o.id)}</Link><p className="text-sm text-muted-foreground">Placed {formatDate(o.created_at)}</p></div>
           <div className="flex flex-wrap gap-2"><StatusPill prefix="Order" {...s} /><StatusPill prefix="Payment" {...p} /></div>
         </div>
         <ul className="divide-y px-4 sm:px-5">

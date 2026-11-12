@@ -14,11 +14,14 @@ const ORDER: Record<OrderStatus, { label: string; tone: Tone }> = {
 
 const isStatus = (s: string): s is OrderStatus => s in ORDER;
 
-export function orderStatus(status: string) {
+export function orderStatus(status: string, isDemo = false) {
+  if (isDemo && status === "pending") return { label: "Demo order", tone: "info" as Tone };
   return isStatus(status) ? ORDER[status] : { label: "Processing", tone: "neutral" as Tone };
 }
 
-export function paymentStatus(status: string, paymentReference: string | null) {
+export function paymentStatus(status: string, paymentReference: string | null, isDemo = false) {
+  // Demo checkout never takes a payment, whatever the order status.
+  if (isDemo) return { label: "Not charged (demo)", tone: "neutral" as Tone };
   if (status === "paid" || status === "shipped" || status === "delivered") return { label: "Paid", tone: "success" as Tone };
   if (status === "refunded") return { label: "Refunded", tone: "neutral" as Tone };
   if (status === "cancelled") return paymentReference ? { label: "Refund pending", tone: "danger" as Tone } : { label: "Not charged", tone: "neutral" as Tone };
