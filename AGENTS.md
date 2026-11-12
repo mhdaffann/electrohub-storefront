@@ -34,3 +34,4 @@ use the editor.
 - Account routes live under the client-only authenticated layout; private profile reads use the generated browser client with owner-scoped RLS.
 - Share Zod schemas across account forms; Cloud Auth validates credentials on the server and database constraints validate stored profile fields.
 - Payment status shown to customers is derived from the order status (src/lib/order-status.ts), not a separate column; orders are read-only for customers and only server-side payment code may create or advance them.
+- Checkout orders are created only by a server function that re-reads prices and availability from the products table, then saves order + items atomically via a service-role-only database function keyed by a client idempotency key, so totals cannot be tampered with and repeat submits never duplicate.

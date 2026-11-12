@@ -3,6 +3,7 @@ import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { formatINR, type Product } from "@/data/products";
 import { calcTotals, FREE_DELIVERY_THRESHOLD } from "@/lib/pricing";
 import type { ReactNode } from "react";
+import { MAX_ITEM_QTY } from "@/lib/checkout-validation";
 
 export function QuantityStepper({ qty, onChange, size = "md" }: { qty: number; onChange: (q: number) => void; size?: "md" | "sm" }) {
   const btn = size === "sm" ? "h-9 w-9" : "h-11 w-11";
@@ -10,7 +11,7 @@ export function QuantityStepper({ qty, onChange, size = "md" }: { qty: number; o
     <div className="inline-flex items-center rounded-full border bg-card">
       <button className={`${btn} grid place-items-center disabled:opacity-30`} onClick={() => onChange(qty - 1)} disabled={qty <= 1} aria-label="Decrease quantity"><Minus className="h-4 w-4" /></button>
       <span className="w-8 text-center text-sm font-semibold" aria-live="polite">{qty}</span>
-      <button className={`${btn} grid place-items-center`} onClick={() => onChange(qty + 1)} aria-label="Increase quantity"><Plus className="h-4 w-4" /></button>
+      <button className={`${btn} grid place-items-center disabled:opacity-30`} onClick={() => onChange(qty + 1)} disabled={qty >= MAX_ITEM_QTY} aria-label="Increase quantity"><Plus className="h-4 w-4" /></button>
     </div>
   );
 }

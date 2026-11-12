@@ -13,9 +13,9 @@
 - [x] Email verification: resend confirmation from login (60s cooldown).
 - [x] Fix menu/test build errors; verify homepage and menu in browser.
 
-# Stripe checkout (own Stripe account, test mode)
-- [ ] Connect user's Stripe test secret key.
-- [ ] Server-side checkout session from database prices; availability checks.
-- [ ] Webhook with signature check creates order + items once; needs webhook signing secret.
-- [ ] Success page (clears cart, shows order) and cancel/failure handling (keeps cart).
-- [ ] Tests for pricing/validation rules; browser check.
+# Demo checkout (no Stripe account yet; no payments)
+- [x] Delivery form (name, phone, address) with validation; order summary with images and totals.
+- [x] "Place demo order" saves order + items server-side from database prices; no duplicates.
+- [x] Confirmation page; demo orders shown and labelled in My Account.
+- [x] Tests for order rules; browser check.
+- [ ] Stripe checkout: waiting until the user has a Stripe account.

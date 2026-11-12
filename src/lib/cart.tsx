@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Product } from "@/data/products";
 import { useCatalog } from "@/lib/catalog";
+import { MAX_ITEM_QTY } from "@/lib/checkout-validation";
 
 export interface CartLine { id: string; qty: number }
 interface CartCtx {
@@ -34,9 +35,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       subtotal: lines.reduce((s, l) => s + l.qty * l.product.price, 0),
       add: (id, qty = 1) => {
         const ex = raw.find((l) => l.id === id);
-        save(ex ? raw.map((l) => (l.id === id ? { ...l, qty: l.qty + qty } : l)) : [...raw, { id, qty }]);
+        save(ex ? raw.map((l) => (l.id === id ? { ...l, qty: Math.min(MAX_ITEM_QTY, l.qty + qty) } : l)) : [...raw, { id, qty }]);
       },
-      setQty: (id, qty) => save(raw.map((l) => (l.id === id ? { ...l, qty: Math.max(1, Math.floor(qty)) } : l))),
+      setQty: (id, qty) => save(raw.map((l) => (l.id === id ? { ...l, qty: Math.min(MAX_ITEM_QTY, Math.max(1, Math.floor(qty))) } : l))),
       remove: (id) => save(raw.filter((l) => l.id !== id)),
       clear: () => save([]),
     };
