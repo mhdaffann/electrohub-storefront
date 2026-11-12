@@ -12,3 +12,10 @@
 - [x] Profile management: edit full name on account page; show order history.
 - [x] Email verification: resend confirmation from login (60s cooldown).
 - [x] Fix menu/test build errors; verify homepage and menu in browser.
+
+# Stripe checkout (own Stripe account, test mode)
+- [ ] Connect user's Stripe test secret key.
+- [ ] Server-side checkout session from database prices; availability checks.
+- [ ] Webhook with signature check creates order + items once; needs webhook signing secret.
+- [ ] Success page (clears cart, shows order) and cancel/failure handling (keeps cart).
+- [ ] Tests for pricing/validation rules; browser check.
