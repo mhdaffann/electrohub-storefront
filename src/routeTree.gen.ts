@@ -21,6 +21,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
+import { Route as AuthenticatedOrderIdRouteImport } from './routes/_authenticated/order.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -81,6 +82,11 @@ const ProductIdRoute = ProductIdRouteImport.update({
   path: '/product/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedOrderIdRoute = AuthenticatedOrderIdRouteImport.update({
+  id: '/order/$id',
+  path: '/order/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/account': typeof AuthenticatedAccountRoute
   '/product/$id': typeof ProductIdRoute
+  '/order/$id': typeof AuthenticatedOrderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/account': typeof AuthenticatedAccountRoute
   '/product/$id': typeof ProductIdRoute
+  '/order/$id': typeof AuthenticatedOrderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/product/$id': typeof ProductIdRoute
+  '/_authenticated/order/$id': typeof AuthenticatedOrderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/account'
     | '/product/$id'
+    | '/order/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/account'
     | '/product/$id'
+    | '/order/$id'
   id:
     | '__root__'
     | '/'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/account'
     | '/product/$id'
+    | '/_authenticated/order/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -266,15 +278,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/order/$id': {
+      id: '/_authenticated/order/$id'
+      path: '/order/$id'
+      fullPath: '/order/$id'
+      preLoaderRoute: typeof AuthenticatedOrderIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedOrderIdRoute: typeof AuthenticatedOrderIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedOrderIdRoute: AuthenticatedOrderIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
