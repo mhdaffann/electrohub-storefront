@@ -29,7 +29,7 @@ type FieldName = keyof DeliveryAddress;
 const EMPTY: Record<FieldName, string> = { fullName: "", phone: "", address: "", city: "", state: "", pin: "" };
 const field = "h-11 w-full rounded-xl border border-input bg-card px-4 text-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/15 aria-[invalid=true]:border-destructive";
 
-function Field({ label, name, error, className = "", ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string; name: FieldName; error?: string }) {
+function Field({ label, name, error, className = "", ...props }: React.InputHTMLAttributes<HTMLInputElement> & { label: string; name: FieldName; error?: string | undefined }) {
   return (
     <label className={`block space-y-1.5 ${className}`}>
       <span className="text-sm font-medium">{label}</span>
