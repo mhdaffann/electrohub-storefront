@@ -22,6 +22,13 @@
       "when": 1794491301023,
       "tag": "0002_add_demo_order_support",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794491565989,
+      "tag": "0003_orders_read_only_for_customers",
+      "breakpoints": true
     }
   ]
 }

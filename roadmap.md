@@ -14,8 +14,8 @@
 - [x] Fix menu/test build errors; verify homepage and menu in browser.
 
 # Demo checkout (no Stripe account yet; no payments)
-- [ ] Delivery form (name, phone, address) with validation; order summary with images and totals.
-- [ ] "Place demo order" saves order + items server-side from database prices; no duplicates.
-- [ ] Confirmation page; demo orders shown and labelled in My Account.
-- [ ] Tests for order rules; browser check.
+- [x] Delivery form (name, phone, address) with validation; order summary with images and totals.
+- [x] "Place demo order" saves order + items server-side from database prices; no duplicates.
+- [x] Confirmation page; demo orders shown and labelled in My Account.
+- [x] Tests for order rules; browser check.
 - [ ] Stripe checkout: waiting until the user has a Stripe account.
