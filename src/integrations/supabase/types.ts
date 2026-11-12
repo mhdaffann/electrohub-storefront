@@ -95,6 +95,8 @@ export type Database = {
           currency: string
           delivery_charge: number
           id: string
+          idempotency_key: string | null
+          is_demo: boolean
           payment_reference: string | null
           shipping_address: Json
           status: string
@@ -108,6 +110,8 @@ export type Database = {
           currency?: string
           delivery_charge?: number
           id?: string
+          idempotency_key?: string | null
+          is_demo?: boolean
           payment_reference?: string | null
           shipping_address?: Json
           status?: string
@@ -121,6 +125,8 @@ export type Database = {
           currency?: string
           delivery_charge?: number
           id?: string
+          idempotency_key?: string | null
+          is_demo?: boolean
           payment_reference?: string | null
           shipping_address?: Json
           status?: string
@@ -222,7 +228,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_demo_order: {
+        Args: {
+          _address: Json
+          _delivery: number
+          _idempotency_key: string
+          _items: Json
+          _subtotal: number
+          _total: number
+          _user_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

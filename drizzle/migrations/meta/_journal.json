@@ -15,6 +15,13 @@
       "when": 1794318866162,
       "tag": "0001_create_store_catalog_and_orders",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794491301023,
+      "tag": "0002_add_demo_order_support",
+      "breakpoints": true
     }
   ]
 }
