@@ -39,7 +39,7 @@ function Field({ label, name, error, className = "", ...props }: React.InputHTML
   );
 }
 
-export function DemoBanner() {
+function DemoBanner() {
   return (
     <div role="note" className="mb-6 flex items-start gap-3 rounded-2xl border border-primary/30 bg-accent p-4 text-sm text-accent-foreground">
       <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
